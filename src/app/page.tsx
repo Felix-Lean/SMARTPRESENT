@@ -21,7 +21,7 @@ export default function Home() {
           <span className="sparkle" style={{ bottom: '0px', left: '40%' }}>✨</span>
         </h1>
         <p className={`${orbitron.className} text-white text-xl subtitle-animation`}>
-          Dein cleverer Geschenke - Finderoasdjasd
+          Dein cleverer Geschenke - Finder
         </p>
       </div>
       
