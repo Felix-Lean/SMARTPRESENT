@@ -23,7 +23,7 @@ export default function ProductDisplay({ products }: ProductDisplayProps) {
         console.log('Rendering product:', product);
         return (
           <div key={index} className="group relative overflow-hidden transition-all duration-300 hover:transform hover:scale-105">
-            <div className="aspect-[4/3] w-full bg-zinc-900 rounded-xl overflow-hidden">
+            <div className="aspect-[4/3] w-full bg-gray-50 rounded-xl overflow-hidden shadow-sm border border-gray-100">
               <img
                 src={product.image}
                 alt={product.title}
@@ -37,12 +37,12 @@ export default function ProductDisplay({ products }: ProductDisplayProps) {
                 rel="noopener noreferrer"
                 className="block"
               >
-                <h3 className="text-xl font-medium text-white transition-colors duration-300 group-hover:text-blue-400">
+                <h3 className="text-xl font-medium text-gray-900 transition-colors duration-300 group-hover:text-primary">
                   {product.title}
                 </h3>
                 <div className="mt-2 flex items-center justify-between">
-                  <p className="text-lg text-zinc-400">{product.price}</p>
-                  <span className="inline-flex items-center text-sm text-blue-400 transition-transform duration-300 transform translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0">
+                  <p className="text-lg text-gray-600">{product.price}</p>
+                  <span className="inline-flex items-center text-sm text-primary transition-transform duration-300 transform translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0">
                     Mehr erfahren
                     <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />

@@ -58,12 +58,69 @@ const config: Config = {
             opacity: '1',
             transform: 'translateY(0)'
           }
+        },
+        'wiggle': {
+          '0%, 20%': {
+            transform: 'rotate(0deg)'
+          },
+          '22%': {
+            transform: 'rotate(-12deg)'
+          },
+          '24%': {
+            transform: 'rotate(12deg)'
+          },
+          '26%': {
+            transform: 'rotate(-10deg)'
+          },
+          '28%': {
+            transform: 'rotate(10deg)'
+          },
+          '30%': {
+            transform: 'rotate(-8deg)'
+          },
+          '32%': {
+            transform: 'rotate(8deg)'
+          },
+          '34%': {
+            transform: 'rotate(-6deg)'
+          },
+          '36%': {
+            transform: 'rotate(6deg)'
+          },
+          '38%': {
+            transform: 'rotate(-4deg)'
+          },
+          '40%': {
+            transform: 'rotate(4deg)'
+          },
+          '42%': {
+            transform: 'rotate(-2deg)'
+          },
+          '44%': {
+            transform: 'rotate(2deg)'
+          },
+          '46%': {
+            transform: 'rotate(0deg)'
+          },
+          '100%': {
+            transform: 'rotate(0deg)'
+          }
+        },
+        'float': {
+          '0%, 100%': {
+            transform: 'translateY(0)'
+          },
+          '50%': {
+            transform: 'translateY(-5px)'
+          }
         }
       },
       animation: {
         'expand-messages': 'expand-messages 0.5s ease-out forwards',
         'gift-spin': 'gift-spin 2s ease-in-out infinite',
-        'fade-in': 'fade-in 0.3s ease-out forwards'
+        'fade-in': 'fade-in 0.3s ease-out forwards',
+        'wiggle': 'wiggle 3s ease-in-out infinite',
+        'float': 'float 3s ease-in-out infinite'
       },
       transitionTimingFunction: {
         'slow-ease': 'cubic-bezier(0.4, 0, 0.2, 1)'

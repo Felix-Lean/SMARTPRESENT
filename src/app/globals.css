@@ -57,12 +57,11 @@
   transition: all 0.3s ease;
   background: linear-gradient(
     to right,
-    #ffffff 20%,
-    #FFD700 50%,
-    #ffffff 80%
+    var(--gray-900) 20%,
+    var(--primary) 50%,
+    var(--gray-900) 80%
   );
   background-size: 200% auto;
-  color: #ffffff;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -99,24 +98,45 @@
 }
 
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --primary: #2563eb;
+  --primary-light: #60a5fa;
+  --accent: #f59e0b;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-600: #4b5563;
+  --gray-900: #111827;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #1a1a1a;
   }
 }
 
 body {
-  color: var(--foreground);
+  color: var(--gray-900);
   background: var(--background);
   min-height: 100vh;
   margin: 0;
-  padding: 0;
+  padding: 0 80px;
   font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 100px;
+  right: 100px;
+  bottom: 0;
+  background: var(--background);
+  z-index: -2;
 }
 
 /* Neue Styles hinzufügen */
@@ -149,15 +169,16 @@ button:focus {
 
 @keyframes subtleGlow {
   0%, 100% {
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   }
   50% {
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   }
 }
 
 .subtitle-animation {
   animation: fadeSlideUp 0.8s ease-out forwards;
+  color: var(--gray-600);
 }
 
 .subtitle-animation:hover {
@@ -194,14 +215,15 @@ button:focus {
   justify-content: center;
   width: 48px;
   height: 48px;
-  background: transparent;
-  border: 2px solid #333;
+  background: var(--primary);
+  border: none;
   border-radius: 50%;
   transition: all 0.3s ease;
+  color: white;
 }
 
 .send-button:hover {
-  border-color: #444;
+  background: var(--primary-light);
   transform: translateY(-2px);
 }
 
@@ -212,12 +234,11 @@ button:focus {
 .send-button svg {
   width: 24px;
   height: 24px;
-  stroke: #666;
+  stroke: currentColor;
   transition: all 0.3s ease;
 }
 
 .send-button:hover svg {
-  stroke: #888;
   transform: scale(1.1);
 }
 
@@ -227,4 +248,65 @@ button:focus {
 
 .loading-gift {
   animation: float 2s ease-in-out infinite;
+  color: var(--primary);
+}
+
+/* Chat Input und Button Styles */
+input {
+  background-color: transparent !important;
+  color: var(--gray-900) !important;
+  border: none !important;
+}
+
+input::placeholder {
+  color: var(--gray-600);
+}
+
+/* Message Styles */
+.user-message {
+  background-color: var(--primary);
+  color: white;
+}
+
+.bot-message {
+  background-color: var(--gray-50);
+  color: var(--gray-900);
+  border: 1px solid var(--gray-200);
+}
+
+/* Geschenkband-Balken Styles */
+.gift-ribbon-left,
+.gift-ribbon-right {
+  content: '';
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  background: linear-gradient(to bottom, var(--primary-light), var(--primary));
+  z-index: -1;
+  opacity: 0.1;
+  transition: opacity 0.3s ease;
+}
+
+.gift-ribbon-left {
+  left: 0;
+  transform: skewX(0deg);
+}
+
+.gift-ribbon-right {
+  right: 0;
+  transform: skewX(0deg);
+}
+
+.gift-ribbon-left::after,
+.gift-ribbon-right::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary);
+  opacity: 0.3;
+  box-shadow: 0 0 10px var(--primary);
 }

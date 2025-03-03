@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: 'Smartpresent',
   description: 'Dein cleverer Geschenke Finder',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/gift-favicon.svg',
   },
 };
 
@@ -30,6 +30,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="gift-ribbon-left"></div>
+        <div className="gift-ribbon-right"></div>
         {children}
       </body>
     </html>
