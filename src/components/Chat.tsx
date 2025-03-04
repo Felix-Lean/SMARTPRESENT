@@ -141,20 +141,20 @@ export default function Chat() {
 
   return (
     <div className="w-full max-w-2xl mx-auto">
-      <form onSubmit={handleSubmit} className="flex space-x-4 mb-8">
+      <form onSubmit={handleSubmit} className="flex space-x-2 sm:space-x-4 mb-4 sm:mb-8">
         <input
           type="text"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           placeholder="Beschreiben Sie das perfekte Geschenk..."
-          className="flex-1 px-4 py-2 focus:outline-none"
+          className="flex-1 px-3 sm:px-4 py-2 text-sm sm:text-base focus:outline-none rounded-lg border border-gray-300"
           disabled={isLoading}
         />
         <button
           type="submit"
           disabled={!inputText.trim() || isLoading}
           className={`
-            send-button focus:outline-none 
+            send-button focus:outline-none p-2 sm:p-3 rounded-lg
             disabled:opacity-50 disabled:cursor-not-allowed
             ${isLoading ? 'bg-accent' : ''}
           `}
@@ -165,19 +165,19 @@ export default function Chat() {
       </form>
 
       <div className="overflow-hidden">
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {messages.map((msg, i) => (
             <div key={i} className={`${msg.isUser ? 'flex justify-end' : 'flex justify-start'} ${i === messages.length - 1 ? 'animate-fade-in' : ''}`}>
               {msg.isUser ? (
-                <div className="max-w-[80%] bg-primary text-white rounded-lg px-4 py-2 shadow-sm">
-                  <p className="text-sm">{msg.text}</p>
+                <div className="max-w-[85%] sm:max-w-[80%] bg-primary text-white rounded-lg px-3 sm:px-4 py-2 shadow-sm">
+                  <p className="text-sm sm:text-base">{msg.text}</p>
                 </div>
               ) : (
-                <div className="max-w-[80%] space-y-4">
+                <div className="max-w-[85%] sm:max-w-[80%] space-y-3 sm:space-y-4">
                   {/* Quick Results */}
                   {msg.quick_response?.products && msg.quick_response.products.length > 0 && (
                     <div className="space-y-2">
-                      <h3 className="text-gray-900 text-sm font-medium">
+                      <h3 className="text-gray-900 text-sm sm:text-base font-medium">
                         Alles klar! Ich habe folgende spontane Vorschläge zu ihren angegebenen Interessen:
                       </h3>
                       <ProductDisplay products={msg.quick_response.products} />
@@ -186,8 +186,8 @@ export default function Chat() {
                   
                   {/* Detailed Results */}
                   {msg.detailed_response?.products && msg.detailed_response.products.length > 0 && (
-                    <div className="space-y-2 mt-6">
-                      <h3 className="text-gray-900 text-sm font-medium">
+                    <div className="space-y-2 mt-4 sm:mt-6">
+                      <h3 className="text-gray-900 text-sm sm:text-base font-medium">
                         Und hier sind weitere passende Vorschläge zu ihren Interessen:
                       </h3>
                       <ProductDisplay products={msg.detailed_response.products} />
@@ -196,7 +196,7 @@ export default function Chat() {
 
                   {/* Error Messages */}
                   {(msg.quick_response?.error || msg.detailed_response?.error) && (
-                    <div className="text-red-500 text-sm mt-2">
+                    <div className="text-red-500 text-sm sm:text-base mt-2">
                       {msg.quick_response?.error && <p>{msg.quick_response.error}</p>}
                       {msg.detailed_response?.error && <p>{msg.detailed_response.error}</p>}
                     </div>
