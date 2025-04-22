@@ -149,6 +149,7 @@ export default function Chat() {
           placeholder="Beschreiben Sie das perfekte Geschenk..."
           className="flex-1 px-3 sm:px-4 py-2 text-sm sm:text-base focus:outline-none rounded-lg border border-gray-300"
           disabled={isLoading}
+          spellCheck="false"
         />
         <button
           type="submit"

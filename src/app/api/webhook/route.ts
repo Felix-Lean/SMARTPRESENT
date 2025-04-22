@@ -12,7 +12,7 @@ interface WebhookResponse {
   error?: string;
 }
 
-const N8N_DETAILED_WEBHOOK = 'https://morefire2.app.n8n.cloud/webhook/detailed search';
+const N8N_DETAILED_WEBHOOK = 'https://morefire2.app.n8n.cloud/webhook-test/detailed search';
 
 export async function POST(request: Request) {
   try {
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
     // Quick response
     if (type === 'quick') {
-      const quickResponse = await fetch('https://morefire2.app.n8n.cloud/webhook/smartpresent', {
+      const quickResponse = await fetch('https://morefire2.app.n8n.cloud/webhook/meilisearch', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -104,21 +104,24 @@ export async function POST(request: Request) {
       } else {
         try {
           const detailedData = JSON.parse(detailedResponseText);
-          // Check for single product format
+          console.log('Parsed detailed response:', JSON.stringify(detailedData, null, 2));
+          
           if (detailedData.product) {
-            const product: Product = {
-              title: detailedData.product.name,
-              price: detailedData.product.price,
-              url: detailedData.product.url,
-              image: detailedData.product.image_url
+            // Extrahiere die Werte aus den Template-Strings
+            const extractValue = (template: string): string => {
+              const match = template.match(/\{\{\s*\$json\['(.*?)'\]\s*\}\}/);
+              return match ? detailedData[match[1]] || '' : template;
             };
+
+            const product: Product = {
+              title: extractValue(detailedData.product.name),
+              price: extractValue(detailedData.product.price),
+              url: extractValue(detailedData.product.url),
+              image: extractValue(detailedData.product.image_url)
+            };
+
             detailedProducts = [product];
-            console.log('Detailed product found:', product);
-          }
-          // Also check for array format as fallback
-          else if (detailedData.products && Array.isArray(detailedData.products)) {
-            detailedProducts = detailedData.products;
-            console.log('Detailed products found:', detailedProducts.length);
+            console.log('Final processed products:', detailedProducts);
           }
         } catch (e) {
           console.error('Error parsing detailed response:', e);

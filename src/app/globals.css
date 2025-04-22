@@ -256,10 +256,18 @@ input {
   background-color: transparent !important;
   color: var(--gray-900) !important;
   border: none !important;
+  font-family: var(--font-space-grotesk) !important;
+  spellcheck: true;
 }
 
 input::placeholder {
   color: var(--gray-600);
+  font-family: var(--font-space-grotesk);
+}
+
+/* Spell check styles */
+input:-ms-input-placeholder {
+  opacity: 1;
 }
 
 /* Message Styles */
