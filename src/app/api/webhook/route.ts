@@ -1,5 +1,13 @@
 import { NextResponse } from 'next/server';
 
+interface DetailedProductData {
+  name: string;
+  price: string;
+  url: string;
+  image_url: string;
+  [key: string]: string;
+}
+
 interface Product {
   title: string;
   url: string;
@@ -56,9 +64,12 @@ export async function POST(request: Request) {
       } else {
         try {
           const quickData = JSON.parse(quickResponseText);
-          if (quickData.products && Array.isArray(quickData.products)) {
-            quickProducts = quickData.products;
+          if (quickData && quickData.products && Array.isArray(quickData.products)) {
+            quickProducts = quickData.products.slice(0, 3);
             console.log('Quick products found:', quickProducts.length);
+          } else {
+            console.log('No valid products array in quick response');
+            quickError = 'Keine Produkte gefunden';
           }
         } catch (e) {
           console.error('Error parsing quick response:', e);
@@ -106,21 +117,21 @@ export async function POST(request: Request) {
           const detailedData = JSON.parse(detailedResponseText);
           console.log('Parsed detailed response:', JSON.stringify(detailedData, null, 2));
           
-          if (detailedData.product) {
-            // Extrahiere die Werte aus den Template-Strings
-            const extractValue = (template: string): string => {
-              const match = template.match(/\{\{\s*\$json\['(.*?)'\]\s*\}\}/);
-              return match ? detailedData[match[1]] || '' : template;
-            };
+          if (detailedData.products && Array.isArray(detailedData.products)) {
+            detailedProducts = detailedData.products.slice(0, 3).map((productData: DetailedProductData) => {
+              // Extrahiere die Werte aus den Template-Strings
+              const extractValue = (template: string): string => {
+                const match = template.match(/\{\{\s*\$json\['(.*?)'\]\s*\}\}/);
+                return match ? productData[match[1]] || '' : template;
+              };
 
-            const product: Product = {
-              title: extractValue(detailedData.product.name),
-              price: extractValue(detailedData.product.price),
-              url: extractValue(detailedData.product.url),
-              image: extractValue(detailedData.product.image_url)
-            };
-
-            detailedProducts = [product];
+              return {
+                title: extractValue(productData.name),
+                price: extractValue(productData.price),
+                url: extractValue(productData.url),
+                image: extractValue(productData.image_url)
+              };
+            });
             console.log('Final processed products:', detailedProducts);
           }
         } catch (e) {

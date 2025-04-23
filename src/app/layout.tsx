@@ -25,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="de" suppressHydrationWarning>
       <head>
+        <meta name="verify-admitad" content="b5923bb640" />
         <Script
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=G-YSHFRNTY56`}
